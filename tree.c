@@ -187,6 +187,8 @@ static int build_tree_recursive(const Index *index, int start, int end, int dept
 }
 
 // Build a tree hierarchy from the current index.
+// Deduplication is automatic: unchanged subtrees produce the same hash and
+// are not re-written to the object store (object_write checks object_exists first).
 int tree_from_index(ObjectID *id_out) {
     Index index;
     if (index_load(&index) != 0) return -1;
