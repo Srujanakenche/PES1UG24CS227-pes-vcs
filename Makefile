@@ -2,6 +2,13 @@ CC = gcc
 CFLAGS = -Wall -Wextra -O2
 LDFLAGS = -lcrypto
 
+# Detect OpenSSL on macOS (Homebrew)
+ifeq ($(shell uname), Darwin)
+    OPENSSL_PREFIX = $(shell brew --prefix openssl@3 2>/dev/null || brew --prefix openssl 2>/dev/null || echo "/opt/homebrew/opt/openssl")
+    CFLAGS += -I$(OPENSSL_PREFIX)/include
+    LDFLAGS += -L$(OPENSSL_PREFIX)/lib
+endif
+
 # ─── Main binary ─────────────────────────────────────────────────────────────
 
 SRCS = object.c tree.c index.c commit.c pes.c
@@ -18,7 +25,7 @@ pes: $(OBJS)
 test_objects: test_objects.o object.o
 	$(CC) -o $@ $^ $(LDFLAGS)
 
-test_tree: test_tree.o object.o tree.o
+test_tree: test_tree.o object.o tree.o index.o
 	$(CC) -o $@ $^ $(LDFLAGS)
 
 # ─── Convenience targets ────────────────────────────────────────────────────
