@@ -248,3 +248,5 @@ int object_read(const ObjectID *id, ObjectType *type_out, void **data_out, size_
     free(content);
     return 0;
 }
+
+// Phase 4: commit_create integrates tree_from_index, head_read, and head_update
