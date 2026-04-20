@@ -17,4 +17,11 @@ test_tree
 .vscode/
 .idea/
 
+# Temporary test files (created during demos/screenshots)
+file1.txt
+file2.txt
+hello.txt
+bye.txt
 
+# IDE/tooling helpers
+compile_flags.txt
